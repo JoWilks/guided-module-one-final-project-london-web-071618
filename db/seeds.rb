@@ -1,8 +1,34 @@
-#Insert data into Letters Table
-i = Letter.create(letter: "I", description: "Introverted individuals prefer solitary activities and get exhausted by social interaction. They tend to be quite sensitive to external simulation (e.g. sound, sight or smell) in general.")
+require 'csv'
 
-#Insert data into PersonalityTypes Table
-intj = FourLetter.create(myers_briggs_type: "INTJ", subtitle: "Analyst - Architect", description: "Have original minds and great drive for implementing their ideas and achieving their goals. Quickly see patterns in external events and develop long-range explanatory perspectives. When committed, organize a job and carry it through. Skeptical and independent, have high standards of competence and performance - for themselves and others.")
+Letter.delete_all
+FourLetter.delete_all
+Person.delete_all
+# PersonLetter.delete_all
+#add csv files from Lib/seeds dir into development database as instances ***MUST CALL: rake db:migrate in order for it to be added***
 
-#Insert dummy people into Person table
-bob = Person.create(name: "Bob", mind: "I", energy: "N", nature: "T", tactics: "J")
+#add letters csv into development database
+letter_array = []
+
+CSV.foreach("lib/seeds/letters.csv") do |row|
+  letter_array << row
+end
+
+letter_array.each {|array| Letter.create(letter: array[1], description: array[2]) }
+
+#add four_letter csv into development database
+four_letter_array = []
+
+CSV.foreach("lib/seeds/four_letters.csv") do |row|
+  four_letter_array << row
+end
+
+four_letter_array.each {|array| FourLetter.create(myers_briggs_type: array[1], subtitle: array[2], description: array[3])}
+
+#add people csv into development database
+ people_array= []
+
+CSV.foreach("lib/seeds/people.csv") do |row|
+  people_array << row
+end
+
+people_array.each {|array| Person.create(name: array[0], mind: array[1], energy: array[2], nature: array[3], tactics: array[4])}
