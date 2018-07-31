@@ -1,7 +1,7 @@
-require_relative 'config/environment'
-require 'sinatra/activerecord/rake'
+require_relative 'config/environment.rb'
+require "sinatra/activerecord/rake"
 
-desc 'starts a console'
-task :console do
-  Pry.start
-end
+  desc "start console"
+  task :console do
+    Pry.start
+  end
