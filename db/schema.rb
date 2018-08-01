@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 2) do
 
   create_table "four_letters", force: :cascade do |t|
     t.string "myers_briggs_type"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "tactics"
   end
 
-  create_table "person_letter", force: :cascade do |t|
+  create_table "person_letters", force: :cascade do |t|
     t.integer "person_id"
     t.integer "letter_id"
   end
