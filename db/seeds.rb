@@ -3,7 +3,7 @@ require 'csv'
 Letter.delete_all
 FourLetter.delete_all
 Person.delete_all
-# PersonLetter.delete_all
+PersonLetter.delete_all
 #add csv files from Lib/seeds dir into development database as instances ***MUST CALL: rake db:migrate in order for it to be added***
 
 #add letters csv into development database
@@ -31,4 +31,13 @@ CSV.foreach("lib/seeds/people.csv") do |row|
   people_array << row
 end
 
-people_array.each {|array| Person.create(name: array[0], mind: array[1], energy: array[2], nature: array[3], tactics: array[4])}
+people_array.each {|array| Person.create(name: array[1])}
+
+#add joiner table data from person_lettesr.csv into development database
+ person_letters_array= []
+
+CSV.foreach("lib/seeds/person_letters.csv") do |row|
+  person_letters_array << row
+end
+
+person_letters_array.each {|array| PersonLetter.create(person_id: array[0], mind_id: array[1], energy_id: array[2], nature_id: array[3], tactics_id: array[4], four_letter_id: array[5])}
