@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 3) do
 
   create_table "four_letters", force: :cascade do |t|
     t.string "myers_briggs_type"
@@ -25,15 +25,15 @@ ActiveRecord::Schema.define(version: 2) do
 
   create_table "people", force: :cascade do |t|
     t.string "name"
-    t.string "mind"
-    t.string "energy"
-    t.string "nature"
-    t.string "tactics"
   end
 
   create_table "person_letters", force: :cascade do |t|
     t.integer "person_id"
-    t.integer "letter_id"
+    t.integer "mind_id"
+    t.integer "energy_id"
+    t.integer "nature_id"
+    t.integer "tactics_id"
+    t.integer "four_letter_id"
   end
 
 end
