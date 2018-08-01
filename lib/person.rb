@@ -34,6 +34,7 @@ class Person < ActiveRecord::Base
     mind = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].mind_id
     matching_people_id = PersonLetter.all.select {|pl| pl.mind_id == mind}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
+    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == mind}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -42,6 +43,7 @@ class Person < ActiveRecord::Base
     energy = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].energy_id
     matching_people_id = PersonLetter.all.select {|pl| pl.energy_id == energy}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
+    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == energy}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -50,6 +52,7 @@ class Person < ActiveRecord::Base
     nature = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].nature_id
     matching_people_id = PersonLetter.all.select {|pl| pl.nature_id == nature}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
+    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == nature}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -58,6 +61,7 @@ class Person < ActiveRecord::Base
     tactics = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].tactics_id
     matching_people_id = PersonLetter.all.select {|pl| pl.tactics_id == tactics}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
+    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == tactics}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
