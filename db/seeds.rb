@@ -22,7 +22,7 @@ CSV.foreach("lib/seeds/four_letters.csv") do |row|
   four_letter_array << row
 end
 
-four_letter_array.each {|array| FourLetter.create(myers_briggs_type: array[1], subtitle: array[2], description: array[3])}
+four_letter_array.each {|array| FourLetter.create(myers_briggs_type: array[1], subtitle: array[2], description: array[3], dominant_function: array[4], auxiliary_function: array[5], tertiary_function: array[6], inferior_function: array[7])}
 
 #add people csv into development database
  people_array= []
@@ -41,3 +41,10 @@ CSV.foreach("lib/seeds/person_letters.csv") do |row|
 end
 
 person_letters_array.each {|array| PersonLetter.create(person_id: array[0], mind_id: array[1], energy_id: array[2], nature_id: array[3], tactics_id: array[4], four_letter_id: array[5])}
+
+function_analysis_array = []
+CSV.foreach("lib/seeds/function_analysis.csv") do |row|
+  function_analysis_array << row
+end
+
+function_analysis_array.each {|array| FunctionAnalysis.create(symbol: array[0], name: array[1], desc: array[2])}

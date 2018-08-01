@@ -26,20 +26,24 @@ def save_user(name, mbti)
   PersonLetter.create(person_id:new_person.id, mind_id:mind_letter, energy_id:energy_letter, nature_id:nature_letter, tactics_id:tactics_letter , four_letter_id:four_letter)
 end
 
-def ask_for_info(name, mbti)
+def greeting(name, mbti)
   same_count = Person.type_count(mbti)
   puts "Hi, #{name}. We have recorded #{same_count} individuals with the #{mbti} type in our database."
+end
+
+def ask_for_info
   puts "What would you like to know? \n
   Enter either an individual character from your type to know more...
-  \nOr input 'my type' to get the full type analysis.
+  \nOr input <b>'my type'</b> to get the full type analysis.
   \n Type 'exit' to exit the program."
   gets.chomp
 end
 
 def give_info(name, mbti)
-  mbti_array = mbti.split("")
+  greeting(name, mbti)
   loop do
-    preference = ask_for_info(name, mbti)
+    mbti_array = mbti.split("")
+    preference = ask_for_info
       if preference == "my type"
         obj = Person.all.find {|person| person.name == name}
         obj.mbti_overview
