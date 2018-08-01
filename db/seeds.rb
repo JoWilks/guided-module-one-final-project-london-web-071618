@@ -31,7 +31,7 @@ CSV.foreach("lib/seeds/people.csv") do |row|
   people_array << row
 end
 
-people_array.each {|array| Person.create(name: array[1])}
+people_array.each {|array| Person.create(name: array[1], four_letter: array[2])}
 
 #add joiner table data from person_lettesr.csv into development database
  person_letters_array= []
