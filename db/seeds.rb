@@ -31,4 +31,4 @@ CSV.foreach("lib/seeds/people.csv") do |row|
   people_array << row
 end
 
-people_array.each {|array| Person.create(name: array[0], mind: array[1], energy: array[2], nature: array[3], tactics: array[4])}
+people_array.each {|array| Person.create(name: array[0], four_letter: "#{array[1]}#{array[2]}#{array[3]}#{array[4]}")}
