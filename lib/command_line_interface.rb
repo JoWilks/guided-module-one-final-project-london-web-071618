@@ -37,6 +37,7 @@ def ask_for_info
   puts "- Enter 'my type' for your full MBTI type analysis, and a list of people in our database who share the same type.\n
   - One of the letters from your MBTI type, to learn more about that trait, and see who else shares it in our database.\n
   - Enter 'dominant' to learn about your dominant cognitive function, 'auxiliary' to learn about your auxiliary cognitive function, or 'tertiary' or 'inferior' to find out about those cognitive functions.\n
+  - Type 'function attitude' to learn about your function attitude, and 'function pair' to learn about your function pair.\n
   \n Type 'exit' to exit the program."
   gets.chomp
 end
@@ -79,21 +80,16 @@ def give_info(name, mbti)
       elsif preference == "inferior"
         obj = Person.all.find {|person| person.name == name}
         obj.get_inferior_function
+      elsif preference == "function pair"
+        obj = Person.all.find {|person| person.name == name}
+        obj.function_pair_desc
+      elsif preference == "function attitude"
+        obj = Person.all.find {|person| person.name == name}
+        obj.function_attitude_desc
       elsif preference == "exit"
         break
       else
         "Input not recognized."
     end
   end
-end
-
-
-def function_pair
-  obj = Person.all.find {|person| person.name == name}
-  obj.function_pair_desc
-end
-
-def function_attitude
-  obj = Person.all.find {|person| person.name == name}
-  obj.function_attitude_desc
 end
