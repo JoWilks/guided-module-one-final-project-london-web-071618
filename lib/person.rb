@@ -1,10 +1,16 @@
 class Person < ActiveRecord::Base
-  has_many :letters, through: :person_letters
+  # has_many :letters, through: :person_letters
 
   def get_letter_desc(input_letter)
     #Get description of input letter
     l= Letter.all.select {|letter_instance| letter_instance.letter == input_letter}[0]
-    puts "#{l.letter}: #{l.description}"
+    puts "***"
+    puts ""
+    puts "#{l.letter}"
+    puts "-------"
+    puts "#{l.description}"
+    puts ""
+    puts "***"
   end
 
   def get_four_letter_instance
@@ -19,10 +25,35 @@ class Person < ActiveRecord::Base
      self.get_four_letter_instance.each_letters_descriptions
    end
 
+   def select_function_pair
+     FunctionPair.all.select {|pair| pair.name == self.four_letter[1]+self.four_letter[2]}[0]
+   end
+
+   def function_pair_desc
+     self.select_function_pair.info
+   end
+
+   def find_ppl_matching_function_pair
+     ppl = self.select_function_pair.people
+     ppl.each {|person| puts "#{person.name}"}
+   end
+
+   def select_function_attitude
+     FunctionAttitude.all.select {|pair| pair.name == self.four_letter[0]+self.four_letter[1]}[0]
+   end
+
+   def function_attitude_desc
+     self.select_function_attitude.info
+   end
+
+   def find_ppl_matching_function_pair
+    ppl =self.select_function_attitude.people
+    ppl.each {|person| puts "#{person.name}"}
+   end
+
   def Person.type_count(mbti)
     Person.all.select {|person| person.four_letter == mbti}.count
   end
-
 
   def find_ppl_matching_type
     array_names = Person.all.select {|person| person.four_letter == self.four_letter}.map {|person| person.name}

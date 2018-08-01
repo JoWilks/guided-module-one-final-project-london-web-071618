@@ -41,3 +41,21 @@ CSV.foreach("lib/seeds/person_letters.csv") do |row|
 end
 
 person_letters_array.each {|array| PersonLetter.create(person_id: array[0], mind_id: array[1], energy_id: array[2], nature_id: array[3], tactics_id: array[4], four_letter_id: array[5])}
+
+#add function pairs table data from function_pairs.csv into development database
+ function_pairs_array= []
+
+CSV.foreach("lib/seeds/function_pairs.csv") do |row|
+  function_pairs_array << row
+end
+
+function_pairs_array.each {|array| FunctionPair.create(name: array[0], title: array[1], description: array[2])}
+
+#add function attitudes table data from function_attitudes.csv into development database
+ function_attitudes_array= []
+
+CSV.foreach("lib/seeds/function_attitudes.csv") do |row|
+  function_attitudes_array << row
+end
+
+function_attitudes_array.each {|array| FunctionAttitude.create(name: array[0], title: array[1], description: array[2])}

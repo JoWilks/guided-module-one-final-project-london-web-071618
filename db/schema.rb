@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "four_letters", force: :cascade do |t|
     t.string "myers_briggs_type"
     t.string "subtitle"
+    t.string "description"
+  end
+
+  create_table "function_attitudes", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "description"
+  end
+
+  create_table "function_pairs", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
     t.string "description"
   end
 

@@ -35,6 +35,7 @@ def ask_for_info(name, mbti)
   \n Type 'exit' to exit the program."
   gets.chomp
 end
+#add info about how to check out function pair or function attitude
 
 def give_info(name, mbti)
   mbti_array = mbti.split("")
@@ -66,4 +67,15 @@ def give_info(name, mbti)
         "Input not recognized."
     end
   end
+end
+
+
+def function_pair
+  obj = Person.all.find {|person| person.name == name}
+  obj.function_pair_desc
+end
+
+def function_attitude
+  obj = Person.all.find {|person| person.name == name}
+  obj.function_attitude_desc
 end
