@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 6) do
     t.string "desc"
   end
 
+  create_table "function_attitudes", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "description"
+  end
+
+  create_table "function_pairs", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "description"
+  end
+
   create_table "letters", force: :cascade do |t|
     t.string "letter"
     t.string "description"
