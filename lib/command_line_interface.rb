@@ -81,9 +81,12 @@ def ask_for_info(name, mbti)
   puts "8       --to find out about yout tertiary cognitive functions."
   puts "9       --to find out about yout inferior cognitive functions."
   puts "10      --to learn about your function pair."
-  puts "11      --to be changed........"
-  puts "12      --to change your MBTI type if #{mbti} isn't your correct MBTI type"
-  puts "13      --to correct your name if #{name} isn't correct"
+  puts "11      --to get which MBTI types you're compatible with based on your Dominant Function."
+  puts "12      --to get which MBTI types you're compatible with based on your Auxilary Function."
+  puts "13      --to get a list of compatible people, based on your MBTI type."
+  puts "14      --to check the database for a person, and see if you're level of compatibility with them."
+  puts "15      --to change your MBTI type if #{mbti} isn't your correct MBTI type."
+  puts "16      --to correct your name if #{name} isn't correct."
   puts "'exit'  --to exit the program."
   puts "----------------------------------------------------------------------------"
   gets.chomp
@@ -139,73 +142,98 @@ def give_info(name, mbti)
   loop do
     mbti_array = mbti.split("")
     preference = ask_for_info(name, mbti)
+    obj = Person.all.find {|person| person.name == name}
       if preference == '1'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         obj.mbti_overview
         obj.find_ppl_matching_type
         press_return_menu
       elsif preference == '2'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(mbti_array[0])
         obj.find_ppl_matching_mind
         press_return_menu
       elsif preference == '3'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(mbti_array[1])
         obj.find_ppl_matching_energy
         press_return_menu
       elsif preference == '4'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(mbti_array[2])
         obj.find_ppl_matching_nature
         press_return_menu
       elsif preference == '5'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(mbti_array[3])
         obj.find_ppl_matching_tactics
         press_return_menu
       elsif preference == '6'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         intro_dominant_function
         obj.get_dominant_function
         press_return_menu
       elsif preference == '7'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         intro_auxiliary_function
         obj.get_auxiliary_function
         press_return_menu
       elsif preference == '8'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         intro_tertiary_function
         obj.get_tertiary_function
         press_return_menu
       elsif preference == '9'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         intro_inferior_function
         obj.get_inferior_function
         press_return_menu
       elsif preference == '10'
         slow_down
-        obj = Person.all.find {|person| person.name == name}
         intro_function_pair
         obj.function_pair_desc
         obj.find_ppl_matching_function_pair
         press_return_menu
       elsif preference == '11'
-        puts "Compatibility function  coming soon!"
+        #to get which MBTI types you're compatible with based on your Dominant Function.
+        slow_down
+        obj.get_compatibility_by_similarity
+        obj.get_similar_ppl
+        press_return_menu
       elsif preference == '12'
-        puts "changing MBTI function coming soon!"
+        #to get which MBTI types you're compatible with based on your Auxilary Function.
+        slow_down
+        obj.get_compatibility_by_complementary
+        obj.get_complementary_ppl
+        press_return_menu
       elsif preference == '13'
-        puts "changing name function coming soon!"
+        #to get a list of compatible people, based on your MBTI type.
+        slow_down
+        obj.get_compatible_ppl
+        press_return_menu
+      elsif preference == '14'
+        #to check the database for a person, and see if you're level of compatibility with them
+        slow_down
+        puts ""
+        puts "Here's a list of the people in the database"
+        puts "--------------------------------------------"
+        Person.all.each {|person| printf "#{person.name}, "}
+        puts ""
+        puts "Type in the name of the person you'd like to check your compatibility against."
+        puts "------------------------------------------------------------------------------"
+        person_to_compare = gets.chomp
+        puts ""
+        puts "------------------------------------------------------------------------------"
+        obj.get_compatibility(person_to_compare)
+        puts "------------------------------------------------------------------------------"
+        puts ""
+        press_return_menu
+      elsif preference == '15'
+        #to change your MBTI type if #{mbti} isn't your correct MBTI type.
+
+      elsif preference == '16'
+        #to correct your name if #{name} isn't correct.
+
       elsif preference == "exit"
         break
       else
