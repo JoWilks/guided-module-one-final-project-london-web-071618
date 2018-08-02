@@ -59,3 +59,31 @@ CSV.foreach("lib/seeds/function_attitudes.csv") do |row|
   function_attitudes_array << row
 end
 function_attitudes_array.each {|array| FunctionAttitude.create(name: array[0], title: array[1], description: array[2])}
+
+compatibility_array = []
+CSV.foreach("lib/seeds/compatibility.csv") do |row|
+  compatibility_array << row
+end
+
+compatibility_array.each do |array|
+  very_compatible_array = []
+  pot_compatible_array = []
+  least_compatible_array = []
+  array.each do |element|
+    if element.include?("very compatible")
+      elem_shortened = element.slice(0,4)
+      very_compatible_array.push(elem_shortened)
+    elsif element.include?("potentially compatible")
+        elem_shortened = element.slice(0,4)
+        pot_compatible_array.push(elem_shortened)
+    elsif element.include?("least compatible")
+        elem_shortened = element.slice(0,4)
+        least_compatible_array.push(elem_shortened)
+    end
+  end
+  very_compatible = very_compatible_array.join(", ")
+  pot_compatible = pot_compatible_array.join(", ")
+  least_compatible = least_compatible_array.join(", ")
+
+  CompatibilityChart.create(main_type: array[0], very_compatible: very_compatible, potentially_compatible: pot_compatible, least_compatible: least_compatible)
+end

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 7) do
+ActiveRecord::Schema.define(version: 8) do
+
+  create_table "compatibility_charts", force: :cascade do |t|
+    t.string "main_type"
+    t.string "very_compatible"
+    t.string "potentially_compatible"
+    t.string "least_compatible"
+  end
 
   create_table "four_letters", force: :cascade do |t|
     t.string "myers_briggs_type"
