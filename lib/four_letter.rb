@@ -28,7 +28,7 @@ class FourLetter < ActiveRecord::Base
        puts "************************************************************************"
        puts ""
        puts "#{letter_instance.letter}"
-       puts "-------"
+       puts "----------------------------"
        puts "#{letter_instance.description}"
        puts ""}
    end

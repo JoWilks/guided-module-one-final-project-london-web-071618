@@ -124,7 +124,7 @@ class Person < ActiveRecord::Base
     puts "************************************************************************"
     puts ""
     puts "#{analysis.name}"
-    puts "-------"
+    puts "----------------------------"
     puts "Your dominant function is #{analysis.name}, which is your primary way of perceiving and judging. Someone with Dominant #{analysis.symbol} #{analysis.desc.downcase}"
     puts ""
   end
@@ -136,7 +136,7 @@ class Person < ActiveRecord::Base
     puts "************************************************************************"
     puts ""
     puts "#{analysis.name}"
-    puts "-------"
+    puts "----------------------------"
     puts "Your auxiliary function is #{analysis.name}, which is your second most prominent way of perceiving and judging. Someone with Auxiliary #{analysis.symbol} tends to #{analysis.desc.downcase}"
     puts ""
 
@@ -149,7 +149,7 @@ def get_tertiary_function
   puts "************************************************************************"
   puts ""
   puts "#{analysis.name}"
-  puts "-------"
+  puts "----------------------------"
   puts "Your tertiary function is #{analysis.name}, which is one of the ways that you perceive and judge. Someone with Tertiary #{analysis.symbol}, to a degree #{analysis.desc.downcase}"
   puts ""
 end
@@ -161,7 +161,7 @@ def get_inferior_function
   puts "************************************************************************"
   puts ""
   puts "#{analysis.name}"
-  puts "-------"
+  puts "----------------------------"
   puts "Your inferior function is #{analysis.name}, which is a less obvious way that you perceive and judge. Someone with inferior #{analysis.symbol} in some ways #{analysis.desc.downcase}"
   puts ""
 end

@@ -18,6 +18,7 @@ def get_mbti_from_user
   puts "Please enter your MBTI result in four capital letters."
   puts ""
   puts "If you don't know your MBTI result, take the test at https://www.16personalities.com/free-personality-test."
+  puts "-------------------------------------------------------"
   # use gets to capture the user's input. This method should return that input, downcased.
   gets.chomp
 end
@@ -48,6 +49,22 @@ def greeting(name, mbti)
   puts "Hi, #{name}. We have recorded #{same_count} individuals with the #{mbti} type in our database."
 end
 
+def press_return_menu
+  # function that pauses after getting information from the ask_for_info options, and makes user press key to return back to press_return_menu
+  puts "press enter to return to the main menu"
+  press_something = gets.chomp
+end
+
+def slow_down
+  #function that makes pauses before loading info, just to give users eyes a bit of time to track what's happening on the command line
+  array_animate = ["L","O","A","D","I","N","G",".",".","."] #["I", "E","S", "N","T", "F","P","J"]
+  puts ""
+  array_animate.each{|element|
+    printf element
+    sleep(0.1)}
+    puts ""
+end
+
 def ask_for_info(mbti)
   split_letters = mbti.split(//)
   puts ""
@@ -73,49 +90,71 @@ def give_info(name, mbti)
     mbti_array = mbti.split("")
     preference = ask_for_info(mbti)
       if preference == "my type"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.mbti_overview
         obj.find_ppl_matching_type
+        press_return_menu
       elsif preference == mbti_array[0]
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(preference)
         obj.find_ppl_matching_mind
+        press_return_menu
       elsif preference == mbti_array[1]
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(preference)
         obj.find_ppl_matching_energy
+        press_return_menu
       elsif preference == mbti_array[2]
-      obj = Person.all.find {|person| person.name == name}
+        slow_down
+        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(preference)
         obj.find_ppl_matching_nature
+        press_return_menu
       elsif preference == mbti_array[3]
-      obj = Person.all.find {|person| person.name == name}
+        slow_down
+        obj = Person.all.find {|person| person.name == name}
         obj.get_letter_desc(preference)
         obj.find_ppl_matching_tactics
+        press_return_menu
       elsif preference == "dominant"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_dominant_function
+        press_return_menu
       elsif preference == "auxiliary"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_auxiliary_function
+        press_return_menu
       elsif preference == "tertiary"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_tertiary_function
+        press_return_menu
       elsif preference == "inferior"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.get_inferior_function
+        press_return_menu
       elsif preference == "function pair"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.function_pair_desc
         obj.find_ppl_matching_function_pair
+        press_return_menu
       elsif preference == "function attitude"
+        slow_down
         obj = Person.all.find {|person| person.name == name}
         obj.function_attitude_desc
         obj.find_ppl_matching_function_attitude
+        press_return_menu
       elsif preference == "exit"
         break
       else
-        "Input not recognized."
+        puts "******Input not recognized******"
     end
   end
 end
