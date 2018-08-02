@@ -121,7 +121,6 @@ class Person < ActiveRecord::Base
     mbti_name = self.four_letter
     dom_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.dominant_function
     analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
-    puts "************************************************************************"
     puts ""
     puts "#{analysis.name}"
     puts "----------------------------"
@@ -133,7 +132,6 @@ class Person < ActiveRecord::Base
     mbti_name = self.four_letter
     dom_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.auxiliary_function
     analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
-    puts "************************************************************************"
     puts ""
     puts "#{analysis.name}"
     puts "----------------------------"
@@ -146,7 +144,6 @@ def get_tertiary_function
   mbti_name = self.four_letter
   ter_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.tertiary_function
   analysis = FunctionAnalysis.all.find{|type| type.symbol == ter_func_letters}
-  puts "************************************************************************"
   puts ""
   puts "#{analysis.name}"
   puts "----------------------------"
@@ -158,7 +155,6 @@ def get_inferior_function
   mbti_name = self.four_letter
   inf_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.inferior_function
   analysis = FunctionAnalysis.all.find{|type| type.symbol == inf_func_letters}
-  puts "************************************************************************"
   puts ""
   puts "#{analysis.name}"
   puts "----------------------------"
