@@ -4,6 +4,8 @@ require_relative '../lib/command_line_interface.rb'
 welcome
 name = get_name_from_user
 existing = Person.find_by_name(name)
+
+#checks if person is already in database and can update or leave MBTI the same if so.
   if existing == nil
     slow_down
     mbti = get_mbti_from_user
@@ -26,6 +28,6 @@ existing = Person.find_by_name(name)
         # name_exists(existing)
       end
     end
-end
+  end
 
 give_info(name, mbti)

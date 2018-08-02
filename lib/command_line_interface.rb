@@ -230,14 +230,50 @@ def give_info(name, mbti)
         press_return_menu
       elsif preference == '15'
         #to change your MBTI type if #{mbti} isn't your correct MBTI type.
-
+        user_id = Person.find_by_name(name).id
+        update_user_mbti(name, mbti)
+        new_name = Person.find(user_id).name
+        new_mbti = Person.find(user_id).four_letter
+        give_info(new_name, new_mbti)
       elsif preference == '16'
         #to correct your name if #{name} isn't correct.
-
+        user_id = Person.find_by_name(name).id
+        update_user_name(name)
+        new_name = Person.find(user_id).name
+        new_mbti = Person.find(user_id).four_letter
+        give_info(new_name, new_mbti)
       elsif preference == "exit"
         break
       else
         puts "******Input not recognized******"
     end
   end
+end
+
+
+def update_user_mbti(name, mbti)
+  puts "------------------------------------------------------------------------------"
+  puts "This is your current MBTI '#{mbti}', please input your correct MBTI."
+  new_mbti = gets.chomp
+  puts ""
+  id = Person.all.find {|person| person.name == name}
+  Person.update(id, four_letter: new_mbti)
+  mbti_array = new_mbti.split("")
+  mind_letter = Letter.all.find {|letter| letter.letter == mbti_array[0]}.id
+  energy_letter = Letter.all.find {|letter| letter.letter == mbti_array[1]}.id
+  nature_letter = Letter.all.find {|letter| letter.letter == mbti_array[2]}.id
+  tactics_letter =  Letter.all.find {|letter| letter.letter == mbti_array[3]}.id
+  four_letter = FourLetter.all.find{|letter| letter.myers_briggs_type == new_mbti}.id
+  PersonLetter.update(mind_id:mind_letter, energy_id:energy_letter, nature_id:nature_letter, tactics_id:tactics_letter , four_letter_id:four_letter)
+  press_return_menu
+end
+
+
+def update_user_name(name)
+  puts "------------------------------------------------------------------------------"
+  puts "This is your current name '#{name}', please input your correct name."
+  new_name = gets.chomp
+  puts ""
+  id = Person.all.find {|person| person.name == name}
+  Person.update(id, name: new_name)
 end
