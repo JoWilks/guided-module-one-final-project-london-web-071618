@@ -1,14 +1,6 @@
 class Person < ActiveRecord::Base
   # has_many :letters, through: :person_letters
 
-  def dom_func_letters
-    FourLetter.all.find{|type| type.myers_briggs_type == self.four_letter}.dominant_function
-  end
-
-  def aux_func_letters
-    FourLetter.all.find{|type| type.myers_briggs_type == self.four_letter}.auxiliary_function
-  end
-
   def get_letter_desc(input_letter)
     #Get description of input letter
     l= Letter.all.select {|letter_instance| letter_instance.letter == input_letter}[0]
@@ -73,7 +65,6 @@ class Person < ActiveRecord::Base
     mind = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].mind_id
     matching_people_id = PersonLetter.all.select {|pl| pl.mind_id == mind}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
-    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == mind}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -82,7 +73,6 @@ class Person < ActiveRecord::Base
     energy = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].energy_id
     matching_people_id = PersonLetter.all.select {|pl| pl.energy_id == energy}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
-    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == energy}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -91,7 +81,6 @@ class Person < ActiveRecord::Base
     nature = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].nature_id
     matching_people_id = PersonLetter.all.select {|pl| pl.nature_id == nature}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
-    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == nature}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
@@ -100,112 +89,7 @@ class Person < ActiveRecord::Base
     tactics = PersonLetter.all.select {|pl| pl.person_id == self.id}[0].tactics_id
     matching_people_id = PersonLetter.all.select {|pl| pl.tactics_id == tactics}.map {|person| person.id}
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
-    array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == tactics}
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
   end
-
-  def get_dominant_function
-    mbti_name = self.four_letter
-    dom_func_letters = self.dom_func_letters
-    analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
-    puts "Your dominant function is #{analysis.name}, which is your primary way of perceiving and judging. Someone with Dominant #{analysis.symbol} #{analysis.desc.downcase}"
-    return dom_func_letters
-  end
-
-  def get_auxiliary_function
-    mbti_name = self.four_letter
-    aux_func_letters = self.aux_func_letters
-    analysis = FunctionAnalysis.all.find{|type| type.symbol == aux_func_letters}
-    puts "Your auxiliary function is #{analysis.name}, which is your second most prominent way of perceiving and judging. Someone with Auxiliary #{analysis.symbol} tends to #{analysis.desc.downcase}"
-    return aux_func_letters
-  end
-
-def get_tertiary_function
-  mbti_name = self.four_letter
-  ter_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.tertiary_function
-  analysis = FunctionAnalysis.all.find{|type| type.symbol == ter_func_letters}
-  puts "Your tertiary function is #{analysis.name}, which is one of the ways that you perceive and judge. Someone with Tertiary #{analysis.symbol}, to a degree #{analysis.desc.downcase}"
-end
-
-def get_inferior_function
-  mbti_name = self.four_letter
-  inf_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.inferior_function
-  analysis = FunctionAnalysis.all.find{|type| type.symbol == inf_func_letters}
-  puts "Your inferior function is #{analysis.name}, which is a less obvious way that you perceive and judge. Someone with inferior #{analysis.symbol} in some ways #{analysis.desc.downcase}"
-end
-
-def get_compatibility(name)
-  my_mbti_name = self.four_letter
-  my_chart = CompatibilityChart.find_my_compatibility(my_mbti_name)
-  their_type = Person.find_by(name:name).four_letter
-  if my_chart.very_compatible.include?(their_type)
-    puts "As a #{my_mbti_name} you are very compatible with #{name}, who is a #{their_type}."
-  elsif my_chart.potentially_compatible.include?(their_type)
-    puts "As a #{my_mbti_name} you are potentially compatible with #{name}, who is a #{their_type}."
-  elsif my_chart.least_compatible.include?(their_type)
-    puts "As a #{my_mbti_name} you are not as compatible with #{name}, who is a #{their_type}."
-  end
-  if get_compatibility_by_similarity.include?(name)
-    puts "You would be considered compatible with #{name} on the basis of similarity, as you share a dominant function, giving you a similar core outlook and way of engaging with the world."
-  elsif  get_complementary_ppl.include?(name)
-    puts "You would be considered compatible with #{name} on the basis of being complementary, as they might balance you your auxiliary function. According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. "
-  end
-end
-
-def get_ppl_compatible
-  my_mbti_name = self.four_letter
-  my_chart = CompatibilityChart.find_my_compatibility(my_mbti_name)
-  my_chart_very = CompatibilityChart.find_my_compatibility(my_mbti_name).very_compatible.split(", ")
-  my_chart_possible = CompatibilityChart.find_my_compatibility(my_mbti_name).potentially_compatible.split(", ")
-  my_chart_least = CompatibilityChart.find_my_compatibility(my_mbti_name).least_compatible.split(", ")
-  very_compat_people = Person.all.select {|person| my_chart_very.include?(person.four_letter)}.map {|person| person.name}
-  poss_compat_people = Person.all.select {|person| my_chart_possible.include?(person.four_letter)}.map {|person| person.name}
-  least_compat_people = Person.all.select {|person| my_chart_least.include?(person.four_letter)}.map {|person| person.name}
-  puts "According to your compatibility chart, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
-  puts "You are possibly compatible with #{my_chart_possible.to_sentence}. This includes people such as #{poss_compat_people.to_sentence}."
-  puts "You are least compatible with #{my_chart_least.to_sentence}. This includes people such as #{least_compat_people.to_sentence}."
-end
-
-def get_similar_ppl
-  compat_people = []
-  dom_func_letters = self.dom_func_letters
-  compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_type_letters.each do |type_letters|
-    compat_people << Person.all.select {|person| person.four_letter == type_letters}
-  end
-  compat_people_names = compat_people.flatten.map {|person| person.name}
-  return compat_people_names
-end
-
-def get_compatibility_by_similarity
-  dom_func_letters = self.get_dominant_function
-  compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_people_names = self.get_similar_ppl
-  puts "Based on compatibility through a shared dominant function, which gives you a similar primary way of perceiving and engaging with the world, you would be most compatible with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
-end
-
-def get_complementary_ppl
-  compat_people = []
-  aux_func_letters = self.aux_func_letters
-  compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_type_letters.each do |type_letters|
-    compat_people << Person.all.select {|person| person.four_letter == type_letters}
-  end
-  compat_people_names = compat_people.flatten.map {|person| person.name}
-  return compat_people_names
-end
-
-
-def get_compatibility_by_complementary
-  aux_func_letters = self.get_auxiliary_function
-  compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_people_names = self.get_complementary_ppl
-  puts "According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. It challenges us out of our inner subjective worlds (for introverts), or perception of our outer subjective environment (for extroverts). Based on developing an alternative perspective to have a healthy psychological type, you would be most complementary with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
-end
-
 end

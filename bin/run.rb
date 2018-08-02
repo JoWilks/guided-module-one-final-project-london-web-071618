@@ -4,5 +4,5 @@ require_relative '../lib/command_line_interface.rb'
 welcome
 name = get_name_from_user
 mbti = get_mbti_from_user
-save_user(name, mbti)
+obj = save_user(name, mbti)
 give_info(name, mbti)

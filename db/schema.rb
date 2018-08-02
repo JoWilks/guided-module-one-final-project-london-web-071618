@@ -10,29 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 8) do
-
-  create_table "compatibility_charts", force: :cascade do |t|
-    t.string "main_type"
-    t.string "very_compatible"
-    t.string "potentially_compatible"
-    t.string "least_compatible"
-  end
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "four_letters", force: :cascade do |t|
     t.string "myers_briggs_type"
     t.string "subtitle"
     t.string "description"
-    t.string "dominant_function"
-    t.string "auxiliary_function"
-    t.string "tertiary_function"
-    t.string "inferior_function"
-  end
-
-  create_table "function_analyses", force: :cascade do |t|
-    t.string "symbol"
-    t.string "name"
-    t.string "desc"
   end
 
   create_table "function_attitudes", force: :cascade do |t|
