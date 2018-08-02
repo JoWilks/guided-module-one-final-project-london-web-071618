@@ -107,9 +107,11 @@ def give_info(name, mbti)
       elsif preference == "function pair"
         obj = Person.all.find {|person| person.name == name}
         obj.function_pair_desc
+        obj.find_ppl_matching_function_pair
       elsif preference == "function attitude"
         obj = Person.all.find {|person| person.name == name}
         obj.function_attitude_desc
+        obj.find_ppl_matching_function_attitude
       elsif preference == "exit"
         break
       else

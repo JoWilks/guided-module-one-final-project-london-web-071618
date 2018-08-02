@@ -33,8 +33,11 @@ class Person < ActiveRecord::Base
    end
 
    def find_ppl_matching_function_pair
-     ppl = self.select_function_pair.people
-     ppl.each {|person| puts "#{person.name}"}
+     array_names = self.select_function_pair.people.collect {|person| person.name}
+     puts ""
+     puts "Other people with the same function pair are #{array_names.to_sentence}."
+     puts ""
+     puts "************************************************************************"
    end
 
    def select_function_attitude
@@ -45,9 +48,12 @@ class Person < ActiveRecord::Base
      self.select_function_attitude.info
    end
 
-   def find_ppl_matching_function_pair
-    ppl =self.select_function_attitude.people
-    ppl.each {|person| puts "#{person.name}"}
+   def find_ppl_matching_function_attitude
+    array_names = self.select_function_attitude.people.collect {|person| person.name}
+    puts ""
+    puts "Other people with the same function attitude are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
    end
 
   def Person.type_count(mbti)
