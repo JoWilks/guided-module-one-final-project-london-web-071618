@@ -6,13 +6,12 @@ class FourLetter < ActiveRecord::Base
 
    def full_description
      #description of the full mbti type.
-     puts "***"
+     puts "************************************************************************"
      puts ""
      puts "#{self.myers_briggs_type}: #{self.subtitle}"
      puts "-------------------------------------------"
      puts "#{self.description}"
      puts ""
-     puts "***"
    end
 
    def each_letters_descriptions
@@ -26,12 +25,11 @@ class FourLetter < ActiveRecord::Base
          end}}
 
      output_array.each{|letter_instance|
-       puts "***"
+       puts "************************************************************************"
        puts ""
        puts "#{letter_instance.letter}"
        puts "-------"
        puts "#{letter_instance.description}"
        puts ""}
-     puts "***"
    end
 end
