@@ -59,6 +59,7 @@ CSV.foreach("lib/seeds/function_attitudes.csv") do |row|
   function_attitudes_array << row
 end
 function_attitudes_array.each {|array| FunctionAttitude.create(name: array[0], title: array[1], description: array[2])}
+<<<<<<< HEAD
 
 compatibility_array = []
 CSV.foreach("lib/seeds/compatibility.csv") do |row|
@@ -87,3 +88,5 @@ compatibility_array.each do |array|
 
   CompatibilityChart.create(main_type: array[0], very_compatible: very_compatible, potentially_compatible: pot_compatible, least_compatible: least_compatible)
 end
+=======
+>>>>>>> origin/JoWork

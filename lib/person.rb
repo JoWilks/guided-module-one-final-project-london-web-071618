@@ -18,7 +18,6 @@ class Person < ActiveRecord::Base
     puts "-------"
     puts "#{l.description}"
     puts ""
-    puts "***"
   end
 
   def get_four_letter_instance
@@ -42,8 +41,11 @@ class Person < ActiveRecord::Base
    end
 
    def find_ppl_matching_function_pair
-     ppl = self.select_function_pair.people
-     ppl.each {|person| puts "#{person.name}"}
+     array_names = self.select_function_pair.people.collect {|person| person.name}
+     puts ""
+     puts "Other people with the same function pair are #{array_names.to_sentence}."
+     puts ""
+     puts "************************************************************************"
    end
 
    def select_function_attitude
@@ -54,9 +56,12 @@ class Person < ActiveRecord::Base
      self.select_function_attitude.info
    end
 
-   def find_ppl_matching_function_pair
-    ppl =self.select_function_attitude.people
-    ppl.each {|person| puts "#{person.name}"}
+   def find_ppl_matching_function_attitude
+    array_names = self.select_function_attitude.people.collect {|person| person.name}
+    puts ""
+    puts "Other people with the same function attitude are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
    end
 
   def Person.type_count(mbti)
@@ -66,7 +71,10 @@ class Person < ActiveRecord::Base
   def find_ppl_matching_type
     array_names = Person.all.select {|person| person.four_letter == self.four_letter}.map {|person| person.name}
     array_names -= [self.name]
+    puts ""
     puts "Other people with the #{self.four_letter} personality type are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
   end
 
   def find_ppl_matching_mind
@@ -75,7 +83,10 @@ class Person < ActiveRecord::Base
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
     array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == mind}
+    puts ""
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
   end
 
   def find_ppl_matching_energy
@@ -84,7 +95,10 @@ class Person < ActiveRecord::Base
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
     array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == energy}
+    puts ""
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
   end
 
   def find_ppl_matching_nature
@@ -93,7 +107,10 @@ class Person < ActiveRecord::Base
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
     array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == nature}
+    puts ""
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
   end
 
   def find_ppl_matching_tactics
@@ -102,30 +119,44 @@ class Person < ActiveRecord::Base
     array_names = Person.all.select{|person| matching_people_id.include?(person.id)}.map {|person| person.name}
     array_names -= [self.name]
     letter_match = Letter.all.find {|letter| letter.id == tactics}
+    puts ""
     puts "Other people with the #{letter_match.letter} mind type are #{array_names.to_sentence}."
+    puts ""
+    puts "************************************************************************"
   end
 
   def get_dominant_function
     mbti_name = self.four_letter
-    dom_func_letters = self.dom_func_letters
+    dom_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.dominant_function
     analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
+    puts ""
+    puts "#{analysis.name}"
+    puts "----------------------------"
     puts "Your dominant function is #{analysis.name}, which is your primary way of perceiving and judging. Someone with Dominant #{analysis.symbol} #{analysis.desc.downcase}"
-    return dom_func_letters
+    puts ""
   end
 
   def get_auxiliary_function
     mbti_name = self.four_letter
-    aux_func_letters = self.aux_func_letters
-    analysis = FunctionAnalysis.all.find{|type| type.symbol == aux_func_letters}
+    dom_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.auxiliary_function
+    analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
+    puts ""
+    puts "#{analysis.name}"
+    puts "----------------------------"
     puts "Your auxiliary function is #{analysis.name}, which is your second most prominent way of perceiving and judging. Someone with Auxiliary #{analysis.symbol} tends to #{analysis.desc.downcase}"
-    return aux_func_letters
+    puts ""
+
   end
 
 def get_tertiary_function
   mbti_name = self.four_letter
   ter_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.tertiary_function
   analysis = FunctionAnalysis.all.find{|type| type.symbol == ter_func_letters}
+  puts ""
+  puts "#{analysis.name}"
+  puts "----------------------------"
   puts "Your tertiary function is #{analysis.name}, which is one of the ways that you perceive and judge. Someone with Tertiary #{analysis.symbol}, to a degree #{analysis.desc.downcase}"
+  puts ""
 end
 
 def get_inferior_function
