@@ -188,7 +188,9 @@ end
     puts "--------------------------------------------"
     puts ""
     puts "As a #{my_mbti_name}, according to your compatibility chart, which is based on both studies and collected data, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
+    puts ""
     puts "You are possibly compatible with #{my_chart_possible.to_sentence}. This includes people such as #{poss_compat_people.to_sentence}."
+    puts ""
     puts "You are least compatible with #{my_chart_least.to_sentence}. This includes people such as #{least_compat_people.to_sentence}."
     puts ""
   end
