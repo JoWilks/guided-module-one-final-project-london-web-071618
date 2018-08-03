@@ -219,7 +219,7 @@ end
     compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
     compat_type_letters.each do |type_letters|
       compat_people << Person.all.select {|person| person.four_letter == type_letters}
-    end
+      end
     compat_people_names = compat_people.flatten.map {|person| person.name} - [self.name]
     return compat_people_names
   end
@@ -242,7 +242,7 @@ end
     compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
     compat_type_letters.each do |type_letters|
       compat_people << Person.all.select {|person| person.four_letter == type_letters}
-    end
+      end
     compat_people_names = compat_people.flatten.map {|person| person.name} - [self.name]
     return compat_people_names
   end

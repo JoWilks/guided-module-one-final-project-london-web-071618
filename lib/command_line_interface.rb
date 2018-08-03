@@ -1,5 +1,18 @@
+
 def welcome
   puts "************************************************************************"
+  puts"   __     __)                  ______                    "
+  puts"  (, /|  /|                   (, /    )    ,             "
+  puts"    / | / |       _ __ _        /---(  __   _  _  _      "
+  puts" ) /  |/  |_ (_/_(// (/_)_   ) / ____)/ (_((_/(_//_)_    "
+  puts"(_/   '     .-/             (_/ (         .-/.-/         "
+  puts"           (_/                           (_/(_/          "
+  puts"     ______)              _____                          "
+  puts"    (, /                 (, /      /) ,                  "
+  puts"      /      __   _        / __  _(/   _ _ _/_____       "
+  puts"   ) /  (_/_ /_)_(/_   ___/__/ ((_(__((_(_((_(_) (_      "
+  puts"  (_/  .-/.-/        (__ /                               "
+  puts"      (_/(_/                                             "
   puts ""
   puts "Welcome to the MBTI Analysis generator. Based on the Myers-Briggs Type Indicator, we seek to give you a more in-depth analysis of your personality type."
   puts "-----------------------------"
@@ -9,7 +22,7 @@ def get_name_from_user
   puts "Please enter your full name."
   puts "-----------------------------"
   # use gets to capture the user's input. This method should return that input, downcased.
-  gets.chomp
+  user_input = gets.chomp
 end
 
 def get_mbti_from_user
@@ -60,7 +73,7 @@ def slow_down
   array_animate = ["L","O","A","D","I","N","G",".",".","."]
   puts ""
   array_animate.each{|element|
-    printf element
+    printf " #{element}"
     sleep(0.1)}
     puts ""
 end
@@ -295,13 +308,20 @@ def give_info(name, mbti)
         puts ""
         puts "Type in the name of the person you'd like to check your compatibility against."
         puts "------------------------------------------------------------------------------"
+        loop do
         person_to_compare = gets.chomp
-        slow_down
-        puts ""
-        puts "------------------------------------------------------------------------------"
-        obj.get_compatibility(person_to_compare)
-        puts "------------------------------------------------------------------------------"
-        puts ""
+          if Person.find_by_name(person_to_compare) == nil
+            puts "*** Not a name in our database. Please check and re-enter nmae. ***"
+          else
+            slow_down
+            puts ""
+            puts "------------------------------------------------------------------------------"
+            obj.get_compatibility(person_to_compare)
+            puts "------------------------------------------------------------------------------"
+            puts ""
+            break
+          end
+        end
         press_return_menu
       elsif preference == '15'
         #to change your MBTI type if #{mbti} isn't your correct MBTI type.
