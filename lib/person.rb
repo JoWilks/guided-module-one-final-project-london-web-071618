@@ -222,18 +222,6 @@ end
     return compat_people_names
   end
 
-<<<<<<< HEAD
-def get_compatibility_by_similarity
-  dom_func_letters = self.get_dominant_function
-  compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_people_names = self.get_similar_ppl
-  puts "************************************************************************"
-  puts ""
-  puts "Based on compatibility through a shared dominant function, which gives you a similar primary way of perceiving and engaging with the world, you would be most compatible with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
-  puts ""
-end
-=======
   def get_compatibility_by_similarity
     dom_func_letters = self.get_dominant_function
     compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
@@ -244,7 +232,6 @@ end
     puts "Based on compatibility through a shared dominant function, which gives you a similar main way of perceiving and judging your environment, you would be most compatible with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
     puts ""
   end
->>>>>>> ritzwu
 
   def get_complementary_ppl
     compat_people = []
@@ -259,18 +246,6 @@ end
   end
 
 
-<<<<<<< HEAD
-def get_compatibility_by_complementary
-  aux_func_letters = self.get_auxiliary_function
-  compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_people_names = self.get_complementary_ppl
-  puts "************************************************************************"
-  puts ""
-  puts "According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. It challenges us out of our inner subjective worlds (for introverts), or perception of our outer subjective environment (for extroverts). Based on developing an alternative perspective to have a healthy psychological type, you would be most complementary with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
-  puts ""
-end
-=======
   def get_compatibility_by_complementary
     aux_func_letters = self.get_auxiliary_function
     compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
@@ -281,6 +256,5 @@ end
     puts "According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. It challenges us out of our inner subjective worlds (for introverts), or perception of our outer subjective environment (for extroverts). The types who would help to balance your personality out and develop your auxiliary function would be #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
     puts ""
   end
->>>>>>> ritzwu
 
 end
