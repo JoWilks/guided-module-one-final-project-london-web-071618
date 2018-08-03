@@ -119,18 +119,20 @@ class Person < ActiveRecord::Base
     puts "----------------------------"
     puts "Your dominant function is #{analysis.name} - your most developed/sophisticated cognitive function. #{analysis.desc}"
     puts ""
+    return dom_func_letters
   end
 
   def get_auxiliary_function
     mbti_name = self.four_letter
-    dom_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.auxiliary_function
-    analysis = FunctionAnalysis.all.find{|type| type.symbol == dom_func_letters}
+    aux_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.auxiliary_function
+    analysis = FunctionAnalysis.all.find{|type| type.symbol == aux_func_letters}
     puts ""
     puts "#{analysis.name}"
     puts "----------------------------"
     puts "Your auxiliary function is #{analysis.name}, which is your second most developed cognitive function, which balances out your Dominant Function. Unlike the dominant function, it comes less instinctively to you but you are very aware of it, and skilled with it."
     puts "#{analysis.desc}"
     puts ""
+    return aux_func_letters
   end
 
   def get_tertiary_function
@@ -170,6 +172,7 @@ class Person < ActiveRecord::Base
       puts "You would be considered compatible with #{name} on the basis of being complementary, as they might balance you your auxiliary function. According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. "
     end
   end
+end
 
   def get_compatible_ppl
     my_mbti_name = self.four_letter
@@ -180,9 +183,12 @@ class Person < ActiveRecord::Base
     very_compat_people = Person.all.select {|person| my_chart_very.include?(person.four_letter)}.map {|person| person.name} - [self.name]
     poss_compat_people = Person.all.select {|person| my_chart_possible.include?(person.four_letter)}.map {|person| person.name} - [self.name]
     least_compat_people = Person.all.select {|person| my_chart_least.include?(person.four_letter)}.map {|person| person.name} - [self.name]
+    puts "--------------------------------------------"
+    puts ""
     puts "As a #{my_mbti_name}, according to your compatibility chart, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
     puts "You are possibly compatible with #{my_chart_possible.to_sentence}. This includes people such as #{poss_compat_people.to_sentence}."
     puts "You are least compatible with #{my_chart_least.to_sentence}. This includes people such as #{least_compat_people.to_sentence}."
+    puts ""
   end
 
   def get_similar_ppl
@@ -198,11 +204,14 @@ class Person < ActiveRecord::Base
   end
 
   def get_compatibility_by_similarity
-    dom_func_letters = self.dom_func_letters
+    dom_func_letters = self.get_dominant_function
     compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
     compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
     compat_people_names = self.get_similar_ppl
-    puts "Based on compatibility through a shared dominant function, which gives you a similar primary way of perceiving and judging the world, you would be most compatible with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
+    puts "************************************************************************"
+    puts ""
+    puts "Based on compatibility through a shared dominant function, which gives you a similar main way of perceiving and judging your environment, you would be most compatible with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
+    puts ""
   end
 
   def get_complementary_ppl
@@ -223,7 +232,10 @@ class Person < ActiveRecord::Base
     compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
     compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
     compat_people_names = self.get_complementary_ppl
-    puts "According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. It challenges us out of our inner subjective worlds (for introverts), or perception of our outer subjective environment (for extroverts). Based on developing an alternative perspective to have a healthy psychological type, you would be most complementary with #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
+    puts "************************************************************************"
+    puts ""
+    puts "According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. It challenges us out of our inner subjective worlds (for introverts), or perception of our outer subjective environment (for extroverts). The types who would help to balance your personality out and develop your auxiliary function would be #{compat_type_letters.to_sentence}, such as #{compat_people_names.to_sentence}."
+    puts ""
   end
 
 end
