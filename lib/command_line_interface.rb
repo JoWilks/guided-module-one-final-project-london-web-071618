@@ -79,11 +79,19 @@ def ask_for_info(name, mbti)
   puts "5       --for information about what '#{split_letters[3]}' stands for in your MBTI type."
   puts "6       --to learn about your Dominant Cognitive Function."
   puts "7       --to learn about your Auxiliary Cognitive Function."
+<<<<<<< HEAD
   puts "8       --to find out about yout Tertiary Cognitive Functions."
   puts "9       --to find out about yout Inferior Cognitive Functions."
   puts "10      --to learn about your Function Pair."
   puts "11      --to get which MBTI types you're compatible with based on your Dominant Function."
   puts "12      --to get which MBTI types you're compatible with based on your Auxilary Function."
+=======
+  puts "8       --to find out about yout Tertiary Cognitive Function."
+  puts "9       --to find out about yout Inferior Cognitive Function."
+  puts "10      --to learn about your Function Pair."
+  puts "11      --to get which MBTI types you're compatible with based on being similar."
+  puts "12      --to get which MBTI types you're compatible with based on being complementary."
+>>>>>>> ritzwu
   puts "13      --to get a list of compatible people, based on your MBTI type."
   puts "14      --to check the database for a person, and see if you're level of compatibility with them."
   puts "15      --to change your MBTI type if #{mbti} isn't your correct MBTI type."
@@ -126,6 +134,42 @@ def intro_inferior_function
   puts "Overview of Inferior Functions"
   puts "----------------------------------------------------------------------------"
   puts "The Inferior function is the least preferred function, and one that represents a different side to your personality that you might not have thought of developing. You tend to be less interested in doing activities associated with your inferior function and have less skills associated with it."
+  puts ""
+end
+
+def intro_mind
+  puts "************************************************************************"
+  puts ""
+  puts "Overview of Mind Scale"
+  puts "----------------------------------------------------------------------------"
+  puts "The Mind scale determines the degree of interaction with the outer world; how socially one behaves is just a part of that. Introversion or extroversion is not about being outgoing or not, but about how we see and approach the outside world, including people, objects and activities within it."
+  puts ""
+end
+
+def intro_energy
+  puts "************************************************************************"
+  puts ""
+  puts "Overview of Energy Scale"
+  puts "----------------------------------------------------------------------------"
+  puts "The second scale in our model is called Energy and it connects Intuitive and Observant styles. While the other four scales determine how you interact with the world, this scale actually determines how you see the world and what kind of information you focus on. "
+  puts ""
+end
+
+def intro_nature
+  puts "************************************************************************"
+  puts ""
+  puts "Overview of Nature Scale"
+  puts "----------------------------------------------------------------------------"
+  puts "The Nature scale determines how we make decisions and cope with emotions. While we all have feelings, there are significant differences in how we react to them and what role those feelings play in our lives. This then influences other areas, such as our interactions with other people."
+  puts ""
+end
+
+def intro_tactics
+  puts "************************************************************************"
+  puts ""
+  puts "Overview of Nature Scale"
+  puts "----------------------------------------------------------------------------"
+  puts "The Tactics scale determines how we approach planning and available options. However, this affects more than just our calendars – at its core, this scale determines our attitude toward certainty and structure in our lives, both at mental and physical levels."
   puts ""
 end
 
@@ -181,21 +225,37 @@ def give_info(name, mbti)
         press_return_menu
       elsif preference == '2'
         slow_down
+<<<<<<< HEAD
+=======
+        intro_mind
+>>>>>>> ritzwu
         obj.get_letter_desc(mbti_array[0])
         obj.find_ppl_matching_mind
         press_return_menu
       elsif preference == '3'
         slow_down
+<<<<<<< HEAD
+=======
+        intro_energy
+>>>>>>> ritzwu
         obj.get_letter_desc(mbti_array[1])
         obj.find_ppl_matching_energy
         press_return_menu
       elsif preference == '4'
         slow_down
+<<<<<<< HEAD
+=======
+        intro_nature
+>>>>>>> ritzwu
         obj.get_letter_desc(mbti_array[2])
         obj.find_ppl_matching_nature
         press_return_menu
       elsif preference == '5'
         slow_down
+<<<<<<< HEAD
+=======
+        intro_tactics
+>>>>>>> ritzwu
         obj.get_letter_desc(mbti_array[3])
         obj.find_ppl_matching_tactics
         press_return_menu
@@ -250,7 +310,11 @@ def give_info(name, mbti)
         puts "--------------------------------------------"
         Person.all.each {|person|
           if person.name != name
+<<<<<<< HEAD
             printf "#{person.name}, "
+=======
+            printf "#{person.name} || "
+>>>>>>> ritzwu
           end}
         puts ""
         puts "Type in the name of the person you'd like to check your compatibility against."
