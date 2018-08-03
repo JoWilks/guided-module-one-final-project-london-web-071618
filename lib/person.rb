@@ -1,16 +1,16 @@
 class Person < ActiveRecord::Base
   # has_many :letters, through: :person_letters
 
-  def dom_func_letters
+  #basic functions
+  def dom_func_letters  #get letters of dominant function
     FourLetter.all.find{|type| type.myers_briggs_type == self.four_letter}.dominant_function
   end
 
-  def aux_func_letters
+  def aux_func_letters #get letters of auxiliary function
     FourLetter.all.find{|type| type.myers_briggs_type == self.four_letter}.auxiliary_function
   end
 
-  def get_letter_desc(input_letter)
-    #Get description of input letter
+  def get_letter_desc(input_letter) #Get description of input letter
     l= Letter.all.select {|letter_instance| letter_instance.letter == input_letter}[0]
     puts "************************************************************************"
     puts ""
@@ -40,28 +40,13 @@ class Person < ActiveRecord::Base
      self.select_function_pair.info
    end
 
-   def find_ppl_matching_function_pair
+   def find_ppl_matching_function_pair #find all people in database with same function pair
      array_names = self.select_function_pair.people.collect {|person| person.name}
+     array_names -= [self.name]
      puts ""
      puts "Other people with the same function pair are #{array_names.to_sentence}."
      puts ""
      puts "************************************************************************"
-   end
-
-   def select_function_attitude
-     FunctionAttitude.all.select {|pair| pair.name == self.four_letter[0]+self.four_letter[1]}[0]
-   end
-
-   def function_attitude_desc
-     self.select_function_attitude.info
-   end
-
-   def find_ppl_matching_function_attitude
-    array_names = self.select_function_attitude.people.collect {|person| person.name}
-    puts ""
-    puts "Other people with the same function attitude are #{array_names.to_sentence}."
-    puts ""
-    puts "************************************************************************"
    end
 
   def Person.type_count(mbti)
@@ -132,7 +117,7 @@ class Person < ActiveRecord::Base
     puts ""
     puts "#{analysis.name}"
     puts "----------------------------"
-    puts "Your dominant function is #{analysis.name}, which is your primary way of perceiving and judging. Someone with Dominant #{analysis.symbol} #{analysis.desc.downcase}"
+    puts "Your dominant function is #{analysis.name} - your most developed/sophisticated cognitive function. #{analysis.desc}"
     puts ""
   end
 
@@ -143,21 +128,22 @@ class Person < ActiveRecord::Base
     puts ""
     puts "#{analysis.name}"
     puts "----------------------------"
-    puts "Your auxiliary function is #{analysis.name}, which is your second most prominent way of perceiving and judging. Someone with Auxiliary #{analysis.symbol} tends to #{analysis.desc.downcase}"
+    puts "Your auxiliary function is #{analysis.name}, which is your second most developed cognitive function, which balances out your Dominant Function. Unlike the dominant function, it comes less instinctively to you but you are very aware of it, and skilled with it."
+    puts "#{analysis.desc}"
     puts ""
-
   end
 
-def get_tertiary_function
-  mbti_name = self.four_letter
-  ter_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.tertiary_function
-  analysis = FunctionAnalysis.all.find{|type| type.symbol == ter_func_letters}
-  puts ""
-  puts "#{analysis.name}"
-  puts "----------------------------"
-  puts "Your tertiary function is #{analysis.name}, which is one of the ways that you perceive and judge. Someone with Tertiary #{analysis.symbol}, to a degree #{analysis.desc.downcase}"
-  puts ""
-end
+  def get_tertiary_function
+    mbti_name = self.four_letter
+    ter_func_letters = FourLetter.all.find{|type| type.myers_briggs_type == mbti_name}.tertiary_function
+    analysis = FunctionAnalysis.all.find{|type| type.symbol == ter_func_letters}
+    puts ""
+    puts "#{analysis.name}"
+    puts "----------------------------"
+    puts "Your tertiary function is #{analysis.name}. It is less accessible to you, and you may not fully develop it until you reach mature adulthood. When you're younger, this might be a function you call upon when you are under stress."
+    puts "#{analysis.desc}"
+    puts ""
+  end
 
 def get_inferior_function
   mbti_name = self.four_letter
@@ -196,7 +182,6 @@ def get_compatibility(name)
     puts "You would be considered compatible with #{name} on the basis of being complementary, as they might balance you your auxiliary function. According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. "
     puts ""
   end
-end
 
 def get_compatible_ppl
   my_mbti_name = self.four_letter
@@ -215,17 +200,17 @@ def get_compatible_ppl
   puts ""
 end
 
-def get_similar_ppl
-  compat_people = []
-  dom_func_letters = self.dom_func_letters
-  compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_type_letters.each do |type_letters|
-    compat_people << Person.all.select {|person| person.four_letter == type_letters}
+  def get_similar_ppl
+    compat_people = []
+    dom_func_letters = self.dom_func_letters
+    compat_types = FourLetter.all.select {|type| type.dominant_function == dom_func_letters}
+    compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
+    compat_type_letters.each do |type_letters|
+      compat_people << Person.all.select {|person| person.four_letter == type_letters}
+    end
+    compat_people_names = compat_people.flatten.map {|person| person.name} - [self.name]
+    return compat_people_names
   end
-  compat_people_names = compat_people.flatten.map {|person| person.name}
-  return compat_people_names
-end
 
 def get_compatibility_by_similarity
   dom_func_letters = self.get_dominant_function
@@ -238,17 +223,17 @@ def get_compatibility_by_similarity
   puts ""
 end
 
-def get_complementary_ppl
-  compat_people = []
-  aux_func_letters = self.aux_func_letters
-  compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
-  compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
-  compat_type_letters.each do |type_letters|
-    compat_people << Person.all.select {|person| person.four_letter == type_letters}
+  def get_complementary_ppl
+    compat_people = []
+    aux_func_letters = self.aux_func_letters
+    compat_types = FourLetter.all.select {|type| type.dominant_function == aux_func_letters}
+    compat_type_letters = compat_types.map {|type| type.myers_briggs_type}
+    compat_type_letters.each do |type_letters|
+      compat_people << Person.all.select {|person| person.four_letter == type_letters}
+    end
+    compat_people_names = compat_people.flatten.map {|person| person.name} - [self.name]
+    return compat_people_names
   end
-  compat_people_names = compat_people.flatten.map {|person| person.name}
-  return compat_people_names
-end
 
 
 def get_compatibility_by_complementary

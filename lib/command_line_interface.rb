@@ -98,7 +98,7 @@ def intro_dominant_function
   puts ""
   puts "Overview of Dominant Function"
   puts "----------------------------------------------------------------------------"
-  puts "The dominant function is the combination of 2 functions (i.e for ENFJ a function is one of the letters like the E-extroveted or N-Intuitive) that dominates your personality, and how you make decisions, interact with and percieve the world."
+  puts "Cognitive functions, as profiled by Carl Jung, are different ways of perceiving and judging. All people use all eight cognitive function-attitudes at one point or another, but we have a preference for four of them. The dominant function is the one that dominates your personality, and comes most easily to you."
   puts ""
 end
 
@@ -107,7 +107,7 @@ def intro_auxiliary_function
   puts ""
   puts "Overview of Auxiliary Function"
   puts "----------------------------------------------------------------------------"
-  puts "The Auxiliary function is a combination of 2 functions (i.e for ENFJ a function is one of the letters like the E-extroveted or N-Intuitive) that is opposite to your dominant functions and helps balance it out."
+  puts "Cognitive functions, as profiled by Carl Jung, are different ways of perceiving and judging. All people use all eight cognitive function-attitudes at one point or another, but we have a preference for four of them. The Auxiliary function is your second most developed cognitive function, that helps to balance out your dominant function, being an opposite orientation to it (extraverted if your dominant function is introverted, and vice versa). It can be considered a bridge function, one that connects the dominant function with the tertiary and inferior functions, and represents a more sustainable path to the expansion and integration of one’s type."
   puts ""
 end
 
@@ -116,7 +116,7 @@ def intro_tertiary_function
   puts ""
   puts "Overview of Tertiary Functions"
   puts "----------------------------------------------------------------------------"
-  puts "The Tertiary function is the opposite function of your auxiliary, and is something people tend to develop later in life after they feel comfortable and confident with their current Dominant and Auxiliary functions."
+  puts "The Tertiary function is the opposite function of your auxiliary, and is something people tend to develop later in life after they feel comfortable and confident with their current Dominant and Auxiliary functions. We have facility with it, but it is considered third in priority in the economy of our personality type."
   puts ""
 end
 
@@ -125,7 +125,7 @@ def intro_inferior_function
   puts ""
   puts "Overview of Inferior Functions"
   puts "----------------------------------------------------------------------------"
-  puts "The Inferior function is the least preferred function, so for example if Thinking (T) was your dominant function, Feeling (F) would be your least preferred function. You tend to be less interested in doing activities associated with your inferior function and have less skills associated with it."
+  puts "The Inferior function is the least preferred function, and one that represents a different side to your personality that you might not have thought of developing. You tend to be less interested in doing activities associated with your inferior function and have less skills associated with it."
   puts ""
 end
 
@@ -134,7 +134,7 @@ def intro_function_pair
   puts ""
   puts "Overview of Function Pairs"
   puts "----------------------------------------------------------------------------"
-  puts "One of the key aspects of psychological type is the combination of the Sensing or Intuition preference with the Thinking or Feeling preference. The possible combinations – ST, SF, NF, and NT, which form the four columns of the type table, are called function pairs because they say so much about how we function in life."
+  puts "One of the key aspects of psychological type is the combination of the Sensing or Intuition preference with the Thinking or Feeling preference. The possible combinations – ST, SF, NF, and NT, which form the four columns of the type table, are called function pairs because they say so much about how we function in life. They primarily profile our method of gathering information and then making decisions."
   puts ""
 end
 

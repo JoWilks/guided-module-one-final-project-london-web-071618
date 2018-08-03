@@ -18,7 +18,7 @@ letter_array.each {|array| Letter.create(letter: array[1], description: array[2]
 #add four_letter csv into development database
 four_letter_array = []
 
-CSV.foreach("lib/seeds/four_letters.csv") do |row|
+CSV.foreach("lib/seeds/four_letter.csv") do |row|
   four_letter_array << row
 end
 
@@ -32,13 +32,20 @@ CSV.foreach("lib/seeds/people.csv") do |row|
 end
 people_array.each {|array| Person.create(name: array[1], four_letter: array[2])}
 
-#add joiner table data from person_lettesr.csv into development database
- person_letters_array= []
-
-CSV.foreach("lib/seeds/person_letters.csv") do |row|
-  person_letters_array << row
+people_array.each do |array|
+  letters_array = array[2].split("")
+  key = [0, "I", "E", "S", "N", "T", "F", "P", "J"]
+  letters_array = letters_array.map {|letter| key.find_index(letter)}
+  four_id = FourLetter.all.find{|fourletter| fourletter.myers_briggs_type == array[2]}.id
+  PersonLetter.create(person_id:array[0], mind_id: letters_array[0], energy_id: letters_array[1], nature_id: letters_array[2], tactics_id: letters_array[3], four_letter_id:four_id )
 end
-person_letters_array.each {|array| PersonLetter.create(person_id: array[0], mind_id: array[1], energy_id: array[2], nature_id: array[3], tactics_id: array[4], four_letter_id: array[5])}
+#add joiner table data from person_lettesr.csv into development database
+#  person_letters_array= []
+#
+# CSV.foreach("lib/seeds/person_letters.csv") do |row|
+#   person_letters_array << row
+# end
+# person_letters_array.each {|array| PersonLetter.create(person_id: array[0], mind_id: array[1], energy_id: array[2], nature_id: array[3], tactics_id: array[4], four_letter_id: array[5])}
 
 function_analysis_array = []
 CSV.foreach("lib/seeds/function_analysis.csv") do |row|
@@ -59,7 +66,6 @@ CSV.foreach("lib/seeds/function_attitudes.csv") do |row|
   function_attitudes_array << row
 end
 function_attitudes_array.each {|array| FunctionAttitude.create(name: array[0], title: array[1], description: array[2])}
-<<<<<<< HEAD
 
 compatibility_array = []
 CSV.foreach("lib/seeds/compatibility.csv") do |row|
@@ -88,5 +94,3 @@ compatibility_array.each do |array|
 
   CompatibilityChart.create(main_type: array[0], very_compatible: very_compatible, potentially_compatible: pot_compatible, least_compatible: least_compatible)
 end
-=======
->>>>>>> origin/JoWork
