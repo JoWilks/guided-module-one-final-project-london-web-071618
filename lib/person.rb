@@ -167,12 +167,11 @@ class Person < ActiveRecord::Base
       puts "According to your MBTI compatibility chart, based on both studies and data, as a #{my_mbti_name} you are not as compatible with #{name}, who is a #{their_type}."
     end
     if self.get_similar_ppl.include?(name)
-      puts "You would be considered compatible with #{name} on the basis of similarity, as you share a dominant function, giving you a similar core outlook and way of engaging with the world."
+      puts "You would be considered compatible with #{name} on the basis of similarity, as you share a dominant function, giving you a similar core way of engaging with the world."
     elsif self.get_complementary_ppl.include?(name)
       puts "You would be considered compatible with #{name} on the basis of being complementary, as they might balance you your auxiliary function. According to some compatibility studies, real balance in a relationship occurs when we are able to use and develop our secondary function well enough. "
     end
   end
-end
 
   def get_compatible_ppl
     my_mbti_name = self.four_letter
@@ -185,7 +184,7 @@ end
     least_compat_people = Person.all.select {|person| my_chart_least.include?(person.four_letter)}.map {|person| person.name} - [self.name]
     puts "--------------------------------------------"
     puts ""
-    puts "As a #{my_mbti_name}, according to your compatibility chart, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
+    puts "As a #{my_mbti_name}, according to your compatibility chart, which is based on both studies and collected data, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
     puts "You are possibly compatible with #{my_chart_possible.to_sentence}. This includes people such as #{poss_compat_people.to_sentence}."
     puts "You are least compatible with #{my_chart_least.to_sentence}. This includes people such as #{least_compat_people.to_sentence}."
     puts ""

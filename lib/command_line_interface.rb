@@ -79,11 +79,11 @@ def ask_for_info(name, mbti)
   puts "5       --for information about what '#{split_letters[3]}' stands for in your MBTI type."
   puts "6       --to learn about your Dominant Cognitive Function."
   puts "7       --to learn about your Auxiliary Cognitive Function."
-  puts "8       --to find out about yout Tertiary Cognitive Functions."
-  puts "9       --to find out about yout Inferior Cognitive Functions."
+  puts "8       --to find out about yout Tertiary Cognitive Function."
+  puts "9       --to find out about yout Inferior Cognitive Function."
   puts "10      --to learn about your Function Pair."
-  puts "11      --to get which MBTI types you're compatible with based on being similar to each other."
-  puts "12      --to get which MBTI types you're compatible with based on being complementary to each other."
+  puts "11      --to get which MBTI types you're compatible with based on being similar."
+  puts "12      --to get which MBTI types you're compatible with based on being complementary."
   puts "13      --to get a list of compatible people, based on your MBTI type."
   puts "14      --to check the database for a person, and see if you're level of compatibility with them."
   puts "15      --to change your MBTI type if #{mbti} isn't your correct MBTI type."
@@ -217,21 +217,25 @@ def give_info(name, mbti)
         press_return_menu
       elsif preference == '2'
         slow_down
+        intro_mind
         obj.get_letter_desc(mbti_array[0])
         obj.find_ppl_matching_mind
         press_return_menu
       elsif preference == '3'
         slow_down
+        intro_energy
         obj.get_letter_desc(mbti_array[1])
         obj.find_ppl_matching_energy
         press_return_menu
       elsif preference == '4'
         slow_down
+        intro_nature
         obj.get_letter_desc(mbti_array[2])
         obj.find_ppl_matching_nature
         press_return_menu
       elsif preference == '5'
         slow_down
+        intro_tactics
         obj.get_letter_desc(mbti_array[3])
         obj.find_ppl_matching_tactics
         press_return_menu
@@ -286,7 +290,7 @@ def give_info(name, mbti)
         puts "--------------------------------------------"
         Person.all.each {|person|
           if person.name != name
-            printf "#{person.name}, "
+            printf "#{person.name} || "
           end}
         puts ""
         puts "Type in the name of the person you'd like to check your compatibility against."
