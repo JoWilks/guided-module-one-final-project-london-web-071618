@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-Id,myers_briggs_type,subtitle,description,dominant_function,auxiliary_function,tertiary_function,inferior_function
->>>>>>> origin/JoWork
+Id (int),myers_briggs_type (str),subtitle (str),description,dominant_function,auxiliary_function,tertiary_function,inferior_function
 1,INTJ,Analyst - Architect,"Have original minds and great drive for implementing their ideas and achieving their goals. Quickly see patterns in external events and develop long-range explanatory perspectives. When committed, organize a job and carry it through. Skeptical and independent, have high standards of competence and performance - for themselves and others.",IN,ET,IF,ES
 2,INTP,Analyst - Logician,"Seek to develop logical explanations for everything that interests them. Theoretical and abstract, interested more in ideas than in social interaction. Quiet, contained, flexible, and adaptable. Have unusual ability to focus in depth to solve problems in their area of interest. Skeptical, sometimes critical, always analytical.",IT,EN,IS,IF
 3,ENTJ,Analyst - Commander,"Frank, decisive, assume leadership readily. Quickly see illogical and inefficient procedures and policies, develop and implement comprehensive systems to solve organizational problems. Enjoy long-term planning and goal setting. Usually well informed, well read, enjoy expanding their knowledge and passing it on to others. Forceful in presenting their ideas.",ET,IN,ES,IF
