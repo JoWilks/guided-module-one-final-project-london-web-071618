@@ -71,16 +71,17 @@ def ask_for_info(name, mbti)
   puts "What would you like to know?"
   puts "----------------------------------------------------------------------------"
   puts "Enter one of the following numbers:"
+  puts "0       --To get an overview of what the Myers Briggs Type Indicator (MBTI) is."
   puts "1       --for your full MBTI type analysis."
   puts "2       --for information about what '#{split_letters[0]}' stands for in your MBTI type."
   puts "3       --for information about what '#{split_letters[1]}' stands for in your MBTI type."
   puts "4       --for information about what '#{split_letters[2]}' stands for in your MBTI type."
   puts "5       --for information about what '#{split_letters[3]}' stands for in your MBTI type."
-  puts "6       --to learn about your dominant cognitive function."
-  puts "7       --to learn about your auxiliary cognitive function."
-  puts "8       --to find out about yout tertiary cognitive functions."
-  puts "9       --to find out about yout inferior cognitive functions."
-  puts "10      --to learn about your function pair."
+  puts "6       --to learn about your Dominant Cognitive Function."
+  puts "7       --to learn about your Auxiliary Cognitive Function."
+  puts "8       --to find out about yout Tertiary Cognitive Functions."
+  puts "9       --to find out about yout Inferior Cognitive Functions."
+  puts "10      --to learn about your Function Pair."
   puts "11      --to get which MBTI types you're compatible with based on your Dominant Function."
   puts "12      --to get which MBTI types you're compatible with based on your Auxilary Function."
   puts "13      --to get a list of compatible people, based on your MBTI type."
@@ -137,13 +138,43 @@ def intro_function_pair
   puts ""
 end
 
+def mbti_intro_overview
+  puts "************************************************************************"
+  puts ""
+  puts "What is the MBTI?"
+  puts "----------------------------------------------------------------------------"
+  puts "The MBTI is a way of classifying someone's personality type. It was created by Katherine Briggs and her daughter Isabel Briggs Myers, and is based on the works of Carl Jung who studied psychological types. Their aim was to make his complex academic theories more accessible to everyone, which is why they devised a test to help anyone type themselves."
+  puts ""
+  puts "When you take the test, is asks your several questions about yourself, and from it calculates your personalty type which is based on a combination of 4 letters, which defines your preference for a certain pyschological type. For example people can be more Introverted or Extroverted, whichever function they score higher for will become the first letter of their MBTI."
+  puts ""
+  puts "The benefit of taking this test and knowing yours MBTI type, is that it can help you understand how you work. By 'how you work', this refers to how your percieve the world, make decisions and interact/relate to other people."
+  puts ""
+  puts "By knowing this, you can better understand:"
+  puts "    -how you handle certain situations."
+  puts "    -how to learn more effectively."
+  puts "    -how you relate to other people."
+  puts "Since you understand these aspects of yourself better, you can also develop strategies to make you perform better at each aspect."
+  puts ""
+  puts "Knowing the MBTI of other people as well, means you have an understanding of how the other person works, which can make your relationship better. Since this gives you a understanding of how they think etc, you can more effectively relate to them in a positive way."
+  puts ""
+  puts "There are even further analyses that can come out of your MBTI type, like dominant/auxiliary functions, as well as function pairs. There is also the ability to check your compatibility with other people based on MBTI types, as certain MBTI types more easily relate with other MBTI types."
+  puts ""
+  puts "If you would like to read further about the MBTI type check out the wikipedia page at: https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator"
+  puts ""
+  puts "************************************************************************"
+end
+
 def give_info(name, mbti)
   greeting(name, mbti)
   loop do
     mbti_array = mbti.split("")
     preference = ask_for_info(name, mbti)
     obj = Person.all.find {|person| person.name == name}
-      if preference == '1'
+      if preference == '0'
+        slow_down
+        mbti_intro_overview
+        press_return_menu
+      elsif preference == '1'
         slow_down
         obj.mbti_overview
         obj.find_ppl_matching_type
@@ -217,11 +248,15 @@ def give_info(name, mbti)
         puts ""
         puts "Here's a list of the people in the database"
         puts "--------------------------------------------"
-        Person.all.each {|person| printf "#{person.name}, "}
+        Person.all.each {|person|
+          if person.name != name
+            printf "#{person.name}, "
+          end}
         puts ""
         puts "Type in the name of the person you'd like to check your compatibility against."
         puts "------------------------------------------------------------------------------"
         person_to_compare = gets.chomp
+        slow_down
         puts ""
         puts "------------------------------------------------------------------------------"
         obj.get_compatibility(person_to_compare)
