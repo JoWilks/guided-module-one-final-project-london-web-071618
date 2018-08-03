@@ -255,13 +255,20 @@ def give_info(name, mbti)
         puts ""
         puts "Type in the name of the person you'd like to check your compatibility against."
         puts "------------------------------------------------------------------------------"
+        loop do
         person_to_compare = gets.chomp
-        slow_down
-        puts ""
-        puts "------------------------------------------------------------------------------"
-        obj.get_compatibility(person_to_compare)
-        puts "------------------------------------------------------------------------------"
-        puts ""
+          if Person.find_by_name(person_to_compare) == nil
+            puts "*** Not a name in our database. ***"
+          else
+            slow_down
+            puts ""
+            puts "------------------------------------------------------------------------------"
+            obj.get_compatibility(person_to_compare)
+            puts "------------------------------------------------------------------------------"
+            puts ""
+            break
+          end
+        end
         press_return_menu
       elsif preference == '15'
         #to change your MBTI type if #{mbti} isn't your correct MBTI type.
