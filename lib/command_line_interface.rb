@@ -311,7 +311,7 @@ def give_info(name, mbti)
         loop do
         person_to_compare = gets.chomp
           if Person.find_by_name(person_to_compare) == nil
-            puts "*** Not a name in our database. Please check and re-enter nmae. ***"
+            puts "*** Not a name in our database. Please check and re-enter name. ***"
           else
             slow_down
             puts ""

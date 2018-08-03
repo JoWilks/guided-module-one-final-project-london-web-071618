@@ -195,22 +195,6 @@ end
     puts ""
   end
 
-def get_compatible_ppl
-  my_mbti_name = self.four_letter
-  my_chart = CompatibilityChart.find_my_compatibility(my_mbti_name)
-  my_chart_very = CompatibilityChart.find_my_compatibility(my_mbti_name).very_compatible.split(", ")
-  my_chart_possible = CompatibilityChart.find_my_compatibility(my_mbti_name).potentially_compatible.split(", ")
-  my_chart_least = CompatibilityChart.find_my_compatibility(my_mbti_name).least_compatible.split(", ")
-  very_compat_people = Person.all.select {|person| my_chart_very.include?(person.four_letter)}.map {|person| person.name}
-  poss_compat_people = Person.all.select {|person| my_chart_possible.include?(person.four_letter)}.map {|person| person.name}
-  least_compat_people = Person.all.select {|person| my_chart_least.include?(person.four_letter)}.map {|person| person.name}
-  puts "--------------------------------------------"
-  puts ""
-  puts "As a #{my_mbti_name}, according to your compatibility chart, you are most compatible with #{my_chart_very.to_sentence}. This includes people such as #{very_compat_people.to_sentence}."
-  puts "You are possibly compatible with #{my_chart_possible.to_sentence}. This includes people such as #{poss_compat_people.to_sentence}."
-  puts "You are least compatible with #{my_chart_least.to_sentence}. This includes people such as #{least_compat_people.to_sentence}."
-  puts ""
-end
 
   def get_similar_ppl
     compat_people = []
